@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+option go_package = "internal/app/birdie";
+
+service Birdie {
+  rpc Ping(google.protobuf.Empty) returns (BaseResponse) {}
+  rpc Store(Entry) returns (BaseResponse) {}
+  rpc BulkStore(Entries) returns (BaseResponse) {}
+  rpc Load(LoadQuery) returns (Entry) {}
+  rpc Search(SearchQuery) returns (Entries) {}
+}
+
+enum ResponseStatus {
+  STATUS_OK = 0;
+  STATUS_ERROR = 1;
+}
+
+message BaseResponse {
+  ResponseStatus status = 1;
+  string error = 2;
+}
+
+message Entry {
+  string key = 1;
+  bytes value = 2;
+  uint64 ttl = 3;
+}
+
+message Entries {
+  repeated Entry entry = 1;
+}
+
+message LoadQuery {
+  string key = 1;
+}
+
+message SearchQuery {
+  string pattern = 1;
+}

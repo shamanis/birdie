@@ -1,0 +1,9 @@
+version: '3.1'
+
+services:
+  birdie:
+    image: shamanis88/birdie:latest
+    container_name: birdie
+    restart: always
+    ports:
+      - "50051:50051"
