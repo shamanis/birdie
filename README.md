@@ -4,17 +4,19 @@ Key-value хранилище, рассчитанное главным образ
 В проекте имеются бэнчмарки, для запуска можно использовать `make bench`:
 ```shell
 cpu: Intel(R) Core(TM) i5-5350U CPU @ 1.80GHz
-BenchmarkHash-4                              5703685             206.3 ns/op              31 B/op          2 allocs/op
-BenchmarkStore-4                             1000000              1246 ns/op             283 B/op          7 allocs/op
-BenchmarkLoad-4                              2292718             516.4 ns/op              31 B/op          2 allocs/op
-BenchmarkBulkStore/count_1000-4                 3322            986949 ns/op          122849 B/op       1038 allocs/op
-BenchmarkBulkStore/count_10000-4                 268          11222237 ns/op         1025112 B/op      10386 allocs/op
-BenchmarkBulkStore/count_100000-4                 38          38469056 ns/op         1307768 B/op     101995 allocs/op
-BenchmarkBulkStore_Parallel/count_1000-4        4150            343325 ns/op            8001 B/op       1000 allocs/op
-BenchmarkBulkStore_Parallel/count_10000-4        342           3637982 ns/op           80002 B/op      10000 allocs/op
-BenchmarkBulkStore_Parallel/count_100000-4        38          37536009 ns/op          800013 B/op     100000 allocs/op
+BenchmarkHash-4                           3344268             357.7 ns/op              39 B/op          2 allocs/op
+BenchmarkStore-4                          1000000              1425 ns/op             253 B/op          7 allocs/op
+BenchmarkLoad-4                           1779650             777.4 ns/op              39 B/op          2 allocs/op
+BenchmarkBulkStore/count_1000-4              2365            849593 ns/op          120534 B/op       1029 allocs/op
+BenchmarkBulkStore/count_10000-4              241           5123830 ns/op          240012 B/op      10384 allocs/op
+BenchmarkBulkStore/count_100000-4              22         235653234 ns/op        23109100 B/op     102137 allocs/op
+BenchmarkBulkStore_Parallel/count_1000-4     6307            480595 ns/op           16000 B/op       1000 allocs/op
+BenchmarkBulkStore_Parallel/count_10000-4     600           4034845 ns/op          160002 B/op      10000 allocs/op
+BenchmarkBulkStore_Parallel/count_100000-4     60          26912932 ns/op         1600023 B/op     100000 allocs/op
 ```
-Пачка 100К записей сохраняется в хранилище в среднем за 35ms, но выгоднее всего по скорости выполнения вставлять пакеты до 10К записей.
+Пачка 100К записей сохраняется в хранилище в среднем за 30ms.
+
+Тут следует учитывать результаты параллельных бенчмарков, т.к. они больше похоже на условия реальной работы множества параллельных клиентов.
 
 ## Environment Variables
 * `LISTEN_PORT` - порт, на котором будет запущен сервер. По-умолчанию `:50051`

@@ -1,11 +1,11 @@
 package storage
 
 import (
-	"hash/adler32"
+	"crypto/md5"
 )
 
 func getHash(key string) []byte {
-	h := adler32.New()
+	h := md5.New()
 	_, err := h.Write([]byte(key))
 
 	if err != nil {
