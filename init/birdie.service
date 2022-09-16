@@ -1,0 +1,12 @@
+[Unit]
+Description=Birdie Server
+After=network.target
+
+[Service]
+User=birdie
+Restart=always
+RestartSec=5
+ExecStart=/usr/local/bin/birdie
+
+[Install]
+WantedBy=multi-user.target

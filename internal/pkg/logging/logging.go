@@ -6,7 +6,8 @@ import (
 )
 
 var (
-	logger *logrus.Logger
+	logger       *logrus.Logger
+	defaultLevel = logrus.InfoLevel
 )
 
 func init() {
@@ -19,7 +20,7 @@ func newLogger() *logrus.Logger {
 
 	lvl, err := logrus.ParseLevel(os.Getenv("LOG_LEVEL"))
 	if err != nil {
-		lvl = logrus.InfoLevel // Default log level
+		lvl = defaultLevel
 	}
 	log.SetLevel(lvl)
 	log.SetFormatter(&logrus.JSONFormatter{})

@@ -5,5 +5,8 @@ services:
     image: shamanis88/birdie:latest
     container_name: birdie
     restart: always
+    environment:
+      LOG_LEVEL: info
+      LISTEN_PORT: :50051
     ports:
       - "50051:50051"

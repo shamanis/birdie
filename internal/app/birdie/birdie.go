@@ -7,7 +7,6 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
-	"time"
 )
 
 type Service struct{}
@@ -17,17 +16,23 @@ func (s *Service) Ping(ctx context.Context, in *emptypb.Empty) (*BaseResponse, e
 }
 
 func (s *Service) Store(ctx context.Context, in *Entry) (*BaseResponse, error) {
-	entry := storage.NewEntry(in.GetKey(), in.GetValue(), time.Duration(in.GetTtl())*time.Second)
+	entry := storage.NewEntry(in.GetKey(), in.GetValue(), in.GetTtl())
 	storage.Store(entry)
 	return &BaseResponse{Status: ResponseStatus_STATUS_OK, Error: ""}, nil
 }
 
 func (s *Service) BulkStore(ctx context.Context, in *Entries) (*BaseResponse, error) {
+	var entries []*storage.Entry
+	for _, e := range in.Entry {
+		entries = append(entries, storage.NewEntry(e.GetKey(), e.GetValue(), e.GetTtl()))
+	}
+	storage.BulkStore(entries)
 	return &BaseResponse{Status: ResponseStatus_STATUS_OK, Error: ""}, nil
 }
 
 func (s *Service) Load(ctx context.Context, in *LoadQuery) (*Entry, error) {
 	value, err := storage.Load(in.GetKey())
+
 	if err != nil {
 		if errors.Is(err, storage.NotFoundError) {
 			return nil, status.Error(codes.NotFound, err.Error())
