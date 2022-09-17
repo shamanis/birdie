@@ -1,0 +1,26 @@
+name: Docker Build and Push
+
+on:
+  push:
+    tags: v*.*.*
+
+jobs:
+
+  docker:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Login to DockerHub
+      uses: docker/login-action@v2
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+        
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag shamanis88/birdie:${{ github.ref }} --tag shamanis88/birdie:latest
+    - name: Push Docker Tag Varsion
+      run: docker push shamanis88/birdie:${{ github.ref }}
+    - name: Push Docker Latest
+      run: docker push shamanis88/birdie:latest
