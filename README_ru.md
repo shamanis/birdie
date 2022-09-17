@@ -4,9 +4,9 @@
 ![Docker Build and Push](https://github.com/shamanis/birdie/actions/workflows/docker-image.yml/badge.svg)
 
 # Birdie
-Key-value storage designed mainly for the BulkStore operation, when data is stored in large batches.
+Key-value хранилище, рассчитанное главным образом на операцию BulkStore, когда данные сохраняются большими пачками.
 
-The project has benchmarks, you can use `make bench` to run it:
+В проекте имеются бэнчмарки, для запуска можно использовать `make bench`:
 ```shell
 cpu: Intel(R) Core(TM) i5-5350U CPU @ 1.80GHz
 BenchmarkHash-4                           3344268             357.7 ns/op              39 B/op          2 allocs/op
@@ -19,20 +19,20 @@ BenchmarkBulkStore_Parallel/count_1000-4     6307            480595 ns/op       
 BenchmarkBulkStore_Parallel/count_10000-4     600           4034845 ns/op          160002 B/op      10000 allocs/op
 BenchmarkBulkStore_Parallel/count_100000-4     60          26912932 ns/op         1600023 B/op     100000 allocs/op
 ```
-A pack of 100K records is stored in storage in an average of 30ms.
+Пачка 100К записей сохраняется в хранилище в среднем за 30ms.
 
-Here you should pay attention to the results of parallel benchmarks, because they imitate the real work of clients in conditions of parallel connections.
+Тут следует учитывать результаты параллельных бенчмарков, т.к. они больше похоже на условия реальной работы множества параллельных клиентов.
 
 ## Environment Variables
-* `LISTEN_PORT` - the port on which the server will run. Default `:50051`
-* `LOG_LEVEL` - logging level. Default `info`.
+* `LISTEN_PORT` - порт, на котором будет запущен сервер. По-умолчанию `:50051`
+* `LOG_LEVEL` - уровень логирования. По-молчанию `info`.
 
 ## Deploy
-* Docker - see [docker-compose.yml](deployments/docker-compose.yml)
-* Systemd service - see [birdie.service](init/birdie.service)
+* Docker - смотри пример [docker-compose.yml](deployments/docker-compose.yml)
+* Systemd service - смотри пример [birdie.service](init/birdie.service)
 
 ## Examples
-* Client implementation example [examples/client/main.go](examples/client/main.go)
+* Пример реализации клиента [examples/client/main.go](examples/client/main.go)
 
 ## .proto
-For implement your client use actual [birdie.proto](api/birdie.proto) from server version. 
+Для реализации своего клиента используйте всегда актуальный [birdie.proto](api/birdie.proto) конекретной версии сервера: 
