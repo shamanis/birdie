@@ -83,7 +83,10 @@ func BenchmarkLoad(b *testing.B) {
 
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		Load(fmt.Sprintf("key_%d", i))
+		_, err := Load(fmt.Sprintf("key_%d", i))
+		if err != nil {
+			b.Errorf("failed error: %s", err)
+		}
 	}
 }
 

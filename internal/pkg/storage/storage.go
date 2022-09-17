@@ -2,6 +2,7 @@ package storage
 
 import (
 	"errors"
+	"github.com/shamanis/birdie/internal/pkg/logging"
 	"sync"
 )
 
@@ -10,15 +11,13 @@ const (
 )
 
 var (
+	logger        = logging.New()
 	storages      map[int]*Storage
-	cache         map[string]*Storage
 	NotFoundError = errors.New("not found")
-	TypeCastError = errors.New("fail cast to []byte")
 )
 
 func init() {
 	storages = make(map[int]*Storage, Count)
-	cache = make(map[string]*Storage)
 	for i := 0; i < Count; i++ {
 		storages[i] = &Storage{}
 		storages[i].mu = &sync.RWMutex{}

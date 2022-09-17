@@ -43,7 +43,7 @@ func TestService_Load(t *testing.T) {
 		t.Error("wrong key")
 	}
 
-	res, err = service.Load(context.Background(), &LoadQuery{Key: "unexpected"})
+	_, err = service.Load(context.Background(), &LoadQuery{Key: "unexpected"})
 	st, ok := status.FromError(err)
 	if !ok {
 		t.Error("wrong err type")

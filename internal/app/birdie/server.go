@@ -29,12 +29,16 @@ func StartService() {
 
 	listener, err := net.Listen(listenNetwork, listenAddr)
 	if err != nil {
-		panic(err)
+		logger.Panicf("fail make listener on %s://%s", listenNetwork, listenAddr)
 	}
 
 	grpcServer := grpc.NewServer(opts...)
 
 	RegisterBirdieServer(grpcServer, &Service{})
 	logger.Infof("Start gRPC server on %s://%s", listenNetwork, listenAddr)
-	grpcServer.Serve(listener)
+
+	err = grpcServer.Serve(listener)
+	if err != nil {
+		logger.Panicf("fail start gRPC server: %s", err)
+	}
 }
