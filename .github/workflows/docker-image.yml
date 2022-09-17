@@ -21,6 +21,6 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag shamanis88/birdie:${{ github.ref_name }} --tag shamanis88/birdie:latest
     - name: Push Docker Tag Varsion
-      run: docker push shamanis88/birdie:${{ github.ref }}
+      run: docker push shamanis88/birdie:${{ github.ref_name }}
     - name: Push Docker Latest
       run: docker push shamanis88/birdie:latest
