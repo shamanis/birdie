@@ -1,6 +1,6 @@
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Golang version](https://img.shields.io/badge/Golang-1.19-green.svg)
-![Go Test](https://github.com/shamanis/birdie/actions/workflows/test.yml/badge.svg?branch=master)
+![Go Test](https://github.com/shamanis/birdie/actions/workflows/go.yml/badge.svg?branch=master)
 
 # Birdie
 Key-value хранилище, рассчитанное главным образом на операцию BulkStore, когда данные сохраняются большими пачками.
