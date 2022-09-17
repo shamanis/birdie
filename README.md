@@ -24,7 +24,8 @@ A pack of 100K records is stored in storage in an average of 30ms.
 Here you should pay attention to the results of parallel benchmarks, because they imitate the real work of clients in conditions of parallel connections.
 
 ## Environment Variables
-* `LISTEN_PORT` - the port on which the server will run. Default `:50051`
+* `LISTEN_NETWROK` - the network type of listener. May be `tcp` or `unix`. Default `tcp`.
+* `LISTEN_ADDR` - the socket address on which the server will run. Default `0.0.0.0:50051`
 * `LOG_LEVEL` - logging level. Default `info`.
 
 ## Deploy

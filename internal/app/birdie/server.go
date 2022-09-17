@@ -8,20 +8,26 @@ import (
 )
 
 const (
-	DefaultPort = ":50051"
+	DefaultNetwork = "tcp"
+	DefaultAddr    = "0.0.0.0:50051"
 )
 
 var (
-	listenPort = os.Getenv("LISTEN_PORT")
-	opts       []grpc.ServerOption
-	logger     = logging.New()
+	listenAddr    = os.Getenv("LISTEN_ADDR")
+	listenNetwork = os.Getenv("LISTEN_NETWORK")
+	opts          []grpc.ServerOption
+	logger        = logging.New()
 )
 
 func StartService() {
-	if listenPort == "" {
-		listenPort = DefaultPort
+	if listenNetwork == "" {
+		listenNetwork = DefaultNetwork
 	}
-	listener, err := net.Listen("tcp", listenPort)
+	if listenAddr == "" {
+		listenAddr = DefaultAddr
+	}
+
+	listener, err := net.Listen(listenNetwork, listenAddr)
 	if err != nil {
 		panic(err)
 	}
@@ -29,6 +35,6 @@ func StartService() {
 	grpcServer := grpc.NewServer(opts...)
 
 	RegisterBirdieServer(grpcServer, &Service{})
-	logger.Infof("Start gRPC server on %s", listenPort)
+	logger.Infof("Start gRPC server on %s://%s", listenNetwork, listenAddr)
 	grpcServer.Serve(listener)
 }
