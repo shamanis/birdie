@@ -1,3 +1,5 @@
+![Go Test](https://github.com/shamanis/birdie/actions/workflows/go.yml/badge.svg?branch=master)
+
 # Birdie
 Key-value хранилище, рассчитанное главным образом на операцию BulkStore, когда данные сохраняются большими пачками.
 
